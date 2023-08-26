@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Prisma, User } from '@prisma/client'
 import jwt from 'jsonwebtoken'
-import { Controller } from './abstract.controller'
+import { Controller } from '../abstract.controller'
 import { createPaginator } from '@/utils'
 import { prisma, userSelect } from '@/lib'
 import { UserEntity } from '@/entities'

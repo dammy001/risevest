@@ -36,6 +36,5 @@
       "@middlewares": ["./src/middlewares"]
     }
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["tests/**/*"]
+  "include": ["src/**/*.ts", "./test/**/*.ts", "vitest.config.ts", "tests/users.e2e.test.ts"]
 }

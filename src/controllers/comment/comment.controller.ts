@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { Controller } from './abstract.controller'
+import { Controller } from '../abstract.controller'
 import { prisma } from '@/lib'
 import { StatusCode } from '@/utils'
 

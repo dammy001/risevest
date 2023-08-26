@@ -1,3 +1,3 @@
-export * from './user.controller'
-export * from './post.controller'
-export * from './comment.controller'
+export * from './user/user.controller'
+export * from './post/post.controller'
+export * from './comment/comment.controller'
