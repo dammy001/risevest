@@ -1,5 +1,5 @@
 import express from 'express'
-import type { NextFunction, Request, Response } from 'express'
+import type { Express, NextFunction, Request, Response } from 'express'
 import { ENVIRONMENT, PORT, cache } from '@config'
 import compression from 'compression'
 import helmet from 'helmet'
@@ -11,7 +11,7 @@ import routes from '@routes'
 import rateLimit, { type Options } from 'express-rate-limit'
 
 export class App {
-  public app: express.Application
+  public app: Express
   public env: string
   public port: string | number
 
@@ -23,7 +23,7 @@ export class App {
     this.initializeMiddlewares().initializeRoutes().initializeInterceptors()
   }
 
-  public getApplication(): express.Application {
+  public getApplication(): Express {
     return this.app
   }
 
@@ -39,7 +39,7 @@ export class App {
   }
 
   private initializeMiddlewares(): this {
-    const mapCorsOptions = function (req: Request, callback: (...args: any) => void): void {
+    const mapCorsOptions = function (req: any, callback: (...args: any) => void): void {
       const options = {
         origin: false as boolean | string | string[],
         preflightContinue: false,
