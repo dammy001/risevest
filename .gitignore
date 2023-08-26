@@ -1,0 +1,20 @@
+# Dependecies Directory
+node_modules
+
+# ignore built ts files
+dist/**/*
+
+# ignore secret keys
+.env
+.env.test
+
+# ignore coverage
+coverage
+
+# ignore logs
+debug.log
+errors.log
+
+.eslintcache
+
+*.log

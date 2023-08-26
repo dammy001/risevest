@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "assumeChangesOnlyAffectDirectDependencies": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "types": ["node", "vitest/globals"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/": ["./src"],
+      "@@": ["./src"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@models/*": ["./src/models/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@config/*": ["./src/config/*"],
+      "@config": ["./src/config"],
+      "@routes/*": ["./src/routes/*"],
+      "@routes": ["./src/routes"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@dtos/*": ["./src/dtos/*"],
+      "@exceptions/*": ["./src/exceptions/*"],
+      "@middlewares": ["./src/middlewares"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["tests/**/*"]
+}

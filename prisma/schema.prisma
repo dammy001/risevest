@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex", "views", "postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator zod {
+  provider      = "zod-prisma"
+  output        = "./zod"
+  // imports       = "./zod-utils"
+  relationModel = true
+}
+
+model User {
+  id        String  @id @default(cuid()) @db.Char(36)
+  /// @zod.max(100, { message: "first name must be shorter than 100 characters" })
+  firstName String  @db.VarChar(100)
+  /// @zod.max(100, { message: "last name must be shorter than 100 characters" })
+  lastName  String  @db.VarChar(100)
+  /// @zod.max(150, { message: "email must be shorter than 100 characters" })
+  email     String  @unique @db.VarChar(150)
+  /// @zod.max(150, { message: "username must be shorter than 100 characters" })
+  userName  String? @db.VarChar(100)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  posts    Post[]
+  comments Comment[]
+
+  @@unique([email, userName])
+  @@index([createdAt])
+  @@map(name: "users")
+}
+
+model Post {
+  id       String  @id @default(cuid()) @db.Char(36)
+  title    String
+  content  String? @db.Text
+  imageUrl String?
+  userId   String  @db.Char(36)
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comments Comment[]
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map(name: "posts")
+}
+
+model Comment {
+  id      String  @id @default(cuid()) @db.Char(36)
+  comment String  @db.Text
+  postId  String  @db.Char(36)
+  userId  String? @db.Char(36)
+  post    Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+  @@index([userId, postId])
+  @@index([createdAt])
+  @@map(name: "comments")
+}
