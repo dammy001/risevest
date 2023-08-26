@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Post, Prisma } from '@prisma/client'
 import { Controller } from '../abstract.controller'
-// import { PostPolicy } from '@/policies'
+import { PostPolicy } from '@/policies'
 import { postSelect, prisma } from '@/lib'
 import { PostEntity } from '@/entities'
 import { createPaginator } from '@/utils'
@@ -10,12 +10,9 @@ const paginate = createPaginator({ perPage: 20 })
 
 export class PostController extends Controller {
   async createPost(req: Request, res: Response, next: NextFunction) {
-    // if (
-    //   (req.user && !PostPolicy.canCreate(req.user, req.params?.id)) ||
-    //   !(await prisma.user.findFirst({ where: { id: req.params.id }, select: { id: true } }))
-    // ) {
-    //   return Controller.error(res, 'Unauthorized access')
-    // }
+    if (await PostController.validateRequest(req)) {
+      return Controller.error(res, 'Unauthorized access')
+    }
 
     const { title, content } = req.body
 
@@ -31,10 +28,17 @@ export class PostController extends Controller {
     }
   }
 
+  static async validateRequest(req: Request) {
+    return (
+      (req.user && !PostPolicy.canCreate(req.user, req.params?.id)) ||
+      !(await prisma.user.findFirst({ where: { id: req.params.id }, select: { id: true } }))
+    )
+  }
+
   async getUserPosts(req: Request, res: Response, next: NextFunction) {
-    // if (req.user && !PostPolicy.canView(req.user, req.params?.id)) {
-    //   return Controller.error(res, 'Unauthorized access')
-    // }
+    if (await PostController.validateRequest(req)) {
+      return Controller.error(res, 'Unauthorized access')
+    }
 
     try {
       const result = await paginate<Post, Prisma.PostFindManyArgs>(

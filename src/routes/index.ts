@@ -5,7 +5,7 @@ import { StatusCode } from '@/utils'
 
 const router: IRouter = Router()
 
-router.use('', (req, res) => res.send(StatusCode.OK).json({ status: true, message: 'Welcome' }))
+router.get('', (req, res) => res.send(StatusCode.OK).json({ status: true, message: 'Welcome' }))
 
 router.use('/users', usersRoutes)
 router.use('/posts', postsRoutes)
