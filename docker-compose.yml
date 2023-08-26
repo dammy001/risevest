@@ -2,7 +2,7 @@
 version: "3.8"
 services:
   db:
-    image: postgres:14.1-alpine
+    image: postgres:14.9-alpine
     ports:
       - "${FORWARD_POSTGRES_PORT:-5450}:5432" # expose pg on port 5450 to not collide with pg from elswhere
     restart: always
@@ -19,7 +19,7 @@ services:
       timeout: 5s
       retries: 5
   postgres_is_ready:
-    image: postgres:14.1-alpine
+    image: postgres:14.9-alpine
     depends_on:
       db:
         condition: service_healthy
