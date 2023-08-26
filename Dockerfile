@@ -21,6 +21,6 @@ ENV NODE_ENV=${NODE_ENV}
 
 COPY --from=build /app/dist ./dist
 
-EXPOSE 8443
+EXPOSE 7500
 
 CMD ["npm", "run", "prod"]

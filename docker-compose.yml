@@ -49,12 +49,12 @@ services:
       - "${FORWARD_APP_PORT:-7000}:7000"
     environment:
       NODE_ENV: production
-      DB_HOST: db
-      DB_PORT: 5450
       PORT: 7500
-      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5450/risevest
+      DATABASE_URL: "postgres://default:EdKDLGP7Bo0U@ep-polished-king-14275187-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?pgbouncer=true&connect_timeout=15"
+      POSTGRES_URL_NON_POOLING: "postgres://default:EdKDLGP7Bo0U@ep-polished-king-14275187.us-east-1.postgres.vercel-storage.com:5432/verceldb"
       REDIS_HOST: cache
       REDIS_PORT: 6380
+      SECRET_KEY: sk_123tt80sdxcggfrkfldlksf
       # REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     links:
       - db
