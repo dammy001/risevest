@@ -12,12 +12,12 @@ describe('CommentController', () => {
     mockRequest = {
       body: { userId: 'user-id', comment: 'Test comment' },
       params: { id: 'post-id' },
-    }
+    } as any
     mockResponse = {
       status: vi.fn().mockReturnThis(),
       json: vi.fn(),
-    }
-    mockNext = vi.fn()
+    } as any
+    mockNext = vi.fn() as any
   })
 
   afterEach(() => {

@@ -13,12 +13,12 @@ describe('UserController', () => {
   beforeEach(() => {
     mockRequest = {
       body: {},
-    }
+    } as any
     mockResponse = {
       status: vi.fn().mockReturnThis(),
       json: vi.fn(),
-    }
-    mockNext = vi.fn()
+    } as any
+    mockNext = vi.fn() as any
   })
 
   afterEach(() => {
@@ -217,7 +217,7 @@ describe('UserController', () => {
       vi.mock('@/utils', async () => {
         const actual = await vi.importActual('@/utils')
         return {
-          ...actual,
+          ...(actual as any),
           createPaginator: mocks.createPaginator,
         }
       })

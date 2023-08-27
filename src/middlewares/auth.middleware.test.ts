@@ -38,7 +38,7 @@ describe('authenticate', () => {
   })
 
   it('should return user not found if user does not exist', async () => {
-    jwt.verify.mockReturnValue({ user: { id: 'mock-user-id' } })
+    ;(jwt.verify as any).mockReturnValue({ user: { id: 'mock-user-id' } })
 
     // Mocking the Prisma findFirst method
     const prismaUserFindFirstSpy = vi.spyOn(prisma.user, 'findFirst')
@@ -55,7 +55,7 @@ describe('authenticate', () => {
   })
 
   it('should call next for catch block', async () => {
-    jwt.verify.mockImplementation(() => {
+    ;(jwt.verify as any).mockImplementation(() => {
       throw new Error('Mock Error')
     })
     await authenticate(mockRequest, mockResponse, mockNext)

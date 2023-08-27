@@ -27,7 +27,7 @@ describe('validateRequest', () => {
   it('should validate request body and call next for valid data', async () => {
     const mockDto = new MockType() // Create a mock DTO instance
 
-    plainToInstance.mockReturnValue(mockDto)
+    ;(plainToInstance as any).mockReturnValue(mockDto)
 
     // Mock the validate function
     const validateSpy = vi.spyOn(classValidator, 'validate')

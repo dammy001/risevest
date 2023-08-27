@@ -14,12 +14,12 @@ describe('PostController', () => {
       params: { id: 'user-id' },
       user: null,
       query: {},
-    }
+    } as any
     mockResponse = {
       status: vi.fn().mockReturnThis(),
       json: vi.fn(),
-    }
-    mockNext = vi.fn()
+    } as any
+    mockNext = vi.fn() as any
   })
 
   afterEach(() => {
