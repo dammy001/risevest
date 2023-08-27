@@ -11,7 +11,7 @@
 
 ### Built With
 
-- [ExpressJS](https://nextjs.org/?ref=cal.com)
+- [ExpressJS](https://nextjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Prisma.io](https://prisma.io)
@@ -22,7 +22,7 @@ To get a local copy up and running, please follow these simple steps.
 
 ### Prerequisites
 
-Here is what you need to be able to run Cal.com.
+Here is what you need to be able to run the project.
 
 - Node.js (Version: >=18.x)
 - PostgreSQL
