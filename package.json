@@ -5,7 +5,7 @@
   "main": "src/main.ts",
   "packageManager": "pnpm@8.6.12",
   "engines": {
-    "node": ">=18"
+    "node": "^18"
   },
   "scripts": {
     "prod": "npx prisma migrate deploy && npx prisma db seed && node dist/main.js",
