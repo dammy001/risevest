@@ -8,8 +8,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "prod": "npx prisma migrate deploy && npx prisma db seed && node dist/src/main",
-    "start": "NODE_ENV=production node dist/src/main.js",
+    "prod": "npx prisma migrate deploy && npx prisma db seed && node dist/main",
+    "start": "NODE_ENV=production node dist/main.js",
     "dev": "stale-dep && nodemon",
     "format": "prettier --write --cache \"./**/*.{js,ts,md}\"",
     "format:check": "prettier --check \"./**/*.{js,ts,md}\"",
