@@ -1,9 +1,9 @@
-import { Prisma } from '@prisma/client'
+// import { Prisma } from '@prisma/client'
 
-export const postSelect = Prisma.validator<Prisma.PostSelect>()({
+export const postSelect = {
   id: true,
   title: true,
   content: true,
   imageUrl: true,
   createdAt: true,
-})
+}

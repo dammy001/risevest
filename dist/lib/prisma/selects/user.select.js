@@ -1,3 +1,4 @@
+// import { Prisma } from '@prisma/client'
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -8,14 +9,13 @@ Object.defineProperty(exports, "userSelect", {
         return userSelect;
     }
 });
-const _client = require("@prisma/client");
-const userSelect = _client.Prisma.validator()({
+const userSelect = {
     id: true,
     email: true,
     firstName: true,
     lastName: true,
     userName: true,
     createdAt: true
-});
+};
 
 //# sourceMappingURL=user.select.js.map

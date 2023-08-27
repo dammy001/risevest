@@ -8,7 +8,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "prod": "npx prisma migrate deploy && npx prisma db seed && node dist/main",
+    "prod": "npx prisma migrate deploy && npx prisma db seed && node dist/main.js",
     "start": "NODE_ENV=production node dist/main.js",
     "dev": "stale-dep && nodemon",
     "format": "prettier --write --cache \"./**/*.{js,ts,md}\"",
@@ -32,8 +32,9 @@
     "test:e2e": "vitest run -c vitest.e2e.config.ts",
     "test:e2e:watch": "vitest -c vitest.e2e.config.ts",
     "docker:compose": "docker compose up -d",
+    "docker:compose:build": "docker compose build --no-cache --progress plain",
     "docker:build": "docker build -t risevest-api . --progress=plain --no-cache",
-    "docker:run": "docker run -d -p 7000:7000 risevest-api"
+    "docker:run": "docker run -d -p 7500:7500 risevest-api"
   },
   "author": "Damilare Anjorin",
   "license": "MIT",
