@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
 import logger from '@config/logger'
 import { ISPRODUCTION } from '@config'
-import { StatusCode } from '@/utils'
+import { StatusCode } from '@utils'
 
 export const ErrorInterceptor = (error: any, req: Request, res: Response, next: NextFunction) => {
   try {

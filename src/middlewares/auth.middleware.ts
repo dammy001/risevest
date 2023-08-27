@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import { StatusCode } from '@utils'
 import { HttpException } from '@/exceptions'
 import { JWT_SECRET, SECRET_KEY } from '@/config'
 import { prisma } from '@/lib'
-import { StatusCode } from '@/utils'
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   let decoded: jwt.JwtPayload

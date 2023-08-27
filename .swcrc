@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "sourceMaps": true,
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "target": "es2020",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/": ["./src"],
+      "@@": ["./src"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@models/*": ["./src/models/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@utils": ["./src/utils"],
+      "@config/*": ["./src/config/*"],
+      "@config": ["./src/config"],
+      "@routes/*": ["./src/routes/*"],
+      "@routes": ["./src/routes"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@dtos/*": ["./src/dtos/*"],
+      "@exceptions/*": ["./src/exceptions/*"],
+      "@middlewares": ["./src/middlewares"]
+    },
+    "baseUrl": "."
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}

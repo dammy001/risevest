@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer'
 import { ValidationError, type ValidatorOptions, validate } from 'class-validator'
 import type { Request, RequestHandler } from 'express'
-import { StatusCode } from '@/utils'
+import { StatusCode } from '@utils'
 
 export const validateRequest = <T = any>(
   type: any,
