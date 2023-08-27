@@ -4,7 +4,7 @@ import { Controller } from '../abstract.controller'
 import { PostPolicy } from '@/policies'
 import { postSelect, prisma } from '@/lib'
 import { PostEntity } from '@/entities'
-import { createPaginator } from '@/utils'
+import { StatusCode, createPaginator } from '@/utils'
 
 const paginate = createPaginator({ perPage: 20 })
 
@@ -22,7 +22,12 @@ export class PostController extends Controller {
         select: { ...postSelect },
       })
 
-      return Controller.success(res, Controller.mapEntity<PostEntity>(PostEntity, post))
+      return Controller.success(
+        res,
+        Controller.mapEntity<PostEntity>(PostEntity, post),
+        'Post Created Successfully',
+        StatusCode.CREATED,
+      )
     } catch (err) {
       next(err)
     }
@@ -54,7 +59,7 @@ export class PostController extends Controller {
             createdAt: 'desc',
           },
         },
-        { page: req.query.page as any },
+        { page: req.query.page as string | number },
       )
 
       return Controller.success(res, result)

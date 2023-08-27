@@ -9,8 +9,13 @@ export type IResponse<T = any> = {
 }
 
 export abstract class Controller {
-  static success<T = any>(res: Response, data: T, message: string = 'Successful') {
-    return res.status(StatusCode.OK).json({ success: true, data, message })
+  static success<T = any>(
+    res: Response,
+    data: T,
+    message: string = 'Successful',
+    statusCode = StatusCode.OK,
+  ) {
+    return res.status(statusCode).json({ success: true, data, message })
   }
 
   static error<T extends object = any>(

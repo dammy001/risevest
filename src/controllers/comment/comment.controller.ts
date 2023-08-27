@@ -19,7 +19,12 @@ export class CommentController extends Controller {
         select: { id: true, comment: true, createdAt: true },
       })
 
-      return Controller.success(res, commentInput)
+      return Controller.success(
+        res,
+        commentInput,
+        'Comment Created Successfully',
+        StatusCode.CREATED,
+      )
     } catch (err) {
       next(err)
     }

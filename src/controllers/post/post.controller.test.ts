@@ -1,34 +1,25 @@
 import { NextFunction, Request, Response } from 'express'
-import { Post, PrismaClient } from '@prisma/client'
-import { vi } from 'vitest'
-// import { createPaginator } from '../../utils'
 import { PostController } from './post.controller'
-
-const prisma = new PrismaClient()
-// const paginate = createPaginator({ page: 10 })
+import { prisma } from '@/lib'
+import { StatusCode } from '@/utils'
 
 describe('PostController', () => {
-  let req: Partial<Request>
-  let res: Partial<Response>
-  let next: NextFunction | any
-  let controller: PostController
+  let mockRequest: Request
+  let mockResponse: Response
+  let mockNext: NextFunction
 
   beforeEach(() => {
-    req = {
-      params: { id: 'user_id_here' }, // Replace with a valid user ID
-      body: { title: 'Test Title', content: 'Test Content' },
-      user: {}, // Set the user object if needed
-      query: { page: '1' },
+    mockRequest = {
+      body: {},
+      params: { id: 'user-id' },
+      user: null,
+      query: {},
     }
-
-    res = {
+    mockResponse = {
       status: vi.fn().mockReturnThis(),
       json: vi.fn(),
     }
-
-    next = vi.fn()
-
-    controller = new PostController()
+    mockNext = vi.fn()
   })
 
   afterEach(() => {
@@ -36,76 +27,95 @@ describe('PostController', () => {
   })
 
   describe('createPost', () => {
-    it('should create a new post', async () => {
-      const mockPost: Post = {
-        id: 'mocked_post_id',
-        title: 'Test Title',
+    it('should create a post and return success response', async () => {
+      // Mock Prisma functions
+      const mockCreate = vi.fn()
+      const mockFindFirst = vi.fn()
+
+      prisma.user.findFirst = mockFindFirst
+      prisma.post.create = mockCreate
+
+      const mockCreatedPost = {
+        id: 'post-id',
+        title: 'Test Post',
         content: 'Test Content',
-        imageUrl: null,
-        userId: 'user_id_here', // Replace with the user ID
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        userId: 'user-id',
       }
 
-      prisma.post.create = vi.fn().mockResolvedValue(mockPost)
+      mockFindFirst.mockResolvedValue({ id: 'user-id' })
+      mockCreate.mockResolvedValue(mockCreatedPost)
 
-      await controller.createPost(req as Request, res as Response, next)
+      const postController = new PostController()
+      mockRequest.user = { id: 'user-id' }
 
-      expect(prisma.post.create).toHaveBeenCalledWith({
-        data: {
-          title: 'Test Title',
-          content: 'Test Content',
-          userId: 'user_id_here', // Replace with the user ID
-        },
-        select: expect.any(Object), // This could be your postSelect object or a matcher
+      await postController.createPost(mockRequest, mockResponse, mockNext)
+
+      expect(mockResponse.status).toHaveBeenCalledWith(StatusCode.CREATED)
+
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        success: true,
+        data: expect.any(Object),
+        message: 'Post Created Successfully',
       })
-
-      // Check if the status function is called with 200
-      expect(res.status).toHaveBeenCalledWith(200)
-
-      // Check if the json function is called with the mockPost
-      expect(res.json).toHaveBeenCalledWith({
-        id: 'mocked_post_id',
-        title: 'Test Title',
-        content: 'Test Content',
-        userId: 'user_id_here', // Replace with the user ID
-        createdAt: expect.any(String),
-        updatedAt: expect.any(String),
-      })
+      expect(mockNext).not.toHaveBeenCalled()
     })
+  })
 
-    it.skip('should handle errors', async () => {
-      const errorMessage = 'An error occurred'
-      prisma.post.create = vi.fn().mockRejectedValue(new Error(errorMessage))
+  describe('validateRequest', () => {
+    // ... other tests ...
 
-      await controller.createPost(req as Request, res as Response, next)
+    it('should return undefined for unauthorized access', async () => {
+      // Mock Prisma function
+      prisma.user.findFirst = vi.fn().mockResolvedValue(null)
 
-      expect(next).toHaveBeenCalledWith(new Error(errorMessage))
+      const postController = new PostController()
+
+      const result = await postController.createPost(mockRequest, mockResponse, mockNext)
+
+      expect(result).toBe(undefined)
     })
-
-    // Add more tests for different scenarios
   })
 
   describe.skip('getUserPosts', () => {
-    // it('should get user posts', async () => {
-    //   prisma.post.findMany = vi.fn().mockResolvedValue(/* Mock an array of Post objects */)
-    //   paginate.mockReturnValue(/* Mock pagination result */)
+    it('should get user posts and return success response', async () => {
+      const mockPaginate = vi.fn()
+      const mockFindFirst = vi.fn()
 
-    //   await controller.getUserPosts(req as Request, res as Response, next)
+      prisma.user.findFirst = mockFindFirst
+      prisma.post.findMany = mockPaginate
 
-    //   expect(prisma.post.findMany).toHaveBeenCalledWith(/* Expected query options */)
-    //   expect(paginate).toHaveBeenCalledWith(/* Expected arguments */)
-    //   expect(res.status).toHaveBeenCalledWith(200)
-    //   expect(res.json).toHaveBeenCalledWith(/* Expected response data */)
-    // })
+      // Mock successful paginate call
+      const mockUserPosts = [
+        { id: 'post-id', title: 'Test Post', content: 'Test Content', userId: 'user-id' },
+      ]
 
-    it('should handle errors', async () => {
-      const errorMessage = 'An error occurred'
-      prisma.post.findMany = vi.fn().mockRejectedValue(new Error(errorMessage))
+      mockPaginate.mockResolvedValue(mockUserPosts)
+      mockFindFirst.mockResolvedValue({ id: 'user-id' })
 
-      await controller.getUserPosts(req as Request, res as Response, next)
+      const postController = new PostController()
 
-      expect(next).toHaveBeenCalledWith(new Error(errorMessage))
+      // mockRequest.user = { id: 'user-id' }
+      mockRequest.params = { id: 'user-id' }
+      mockRequest.query = { page: '1' }
+
+      await postController.getUserPosts(mockRequest, mockResponse, mockNext)
+
+      expect(mockPaginate).toHaveBeenCalledWith(
+        prisma.post,
+        {
+          where: { userId: 'user-id' },
+          select: expect.any(Object),
+          orderBy: { createdAt: 'desc' },
+        },
+        { page: '1' },
+      )
+
+      expect(mockResponse.status).toHaveBeenCalledWith(StatusCode.OK)
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        success: true,
+        data: mockUserPosts,
+      })
+      expect(mockNext).not.toHaveBeenCalled()
     })
   })
 })

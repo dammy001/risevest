@@ -2,10 +2,9 @@ import { NextFunction, Request, Response } from 'express'
 import { Prisma, User } from '@prisma/client'
 import jwt from 'jsonwebtoken'
 import { Controller } from '../abstract.controller'
-import { createPaginator } from '@/utils'
+import { StatusCode, createPaginator } from '@/utils'
 import { prisma, userSelect } from '@/lib'
 import { UserEntity } from '@/entities'
-import { HttpException } from '@/exceptions'
 import { JWT_SECRET } from '@/config'
 
 const paginate = createPaginator({ perPage: 20 })
@@ -18,7 +17,7 @@ export class UserController extends Controller {
   ): Promise<Response<any, Record<string, any>> | undefined> {
     try {
       if (await prisma.user.findFirst({ where: { email: req.body.email }, select: userSelect })) {
-        throw new HttpException('User already exists')
+        return Controller.error(res, 'User already exists', {}, StatusCode.BAD_REQUEST)
       }
 
       const user = await prisma.user.create({ data: { ...req.body }, select: userSelect })

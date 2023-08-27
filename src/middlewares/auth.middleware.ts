@@ -11,11 +11,11 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   try {
     const token = req.headers.authorization?.split(' ')[1]
 
+    if (!token) throw new HttpException('Unauthenticated', StatusCode.UNAUTHORIZED)
+
     if (token === SECRET_KEY) {
       return next()
     }
-
-    if (!token) throw new HttpException('Unauthenticated', StatusCode.UNAUTHORIZED)
 
     decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload
 
