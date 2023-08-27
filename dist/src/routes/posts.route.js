@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("@/controllers");
+const middlewares_1 = require("@/middlewares");
+const create_comment_dto_1 = require("@/dtos/posts/comment/create-comment.dto");
+const interceptors_1 = require("@/interceptors");
+const postsRoutes = (0, express_1.Router)();
+const commentController = new controllers_1.CommentController();
+postsRoutes.post('/:id/comments', middlewares_1.authenticate, (0, interceptors_1.validateRequest)(create_comment_dto_1.CreateCommentDto, 'body'), commentController.addCommentToPost);
+exports.default = postsRoutes;

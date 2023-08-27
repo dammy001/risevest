@@ -2,7 +2,7 @@
 node_modules
 
 # ignore built ts files
-dist/**/*
+# dist/**/*
 
 # ignore secret keys
 .env
