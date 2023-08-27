@@ -36,5 +36,11 @@
       "@middlewares": ["./src/middlewares"]
     }
   },
-  "include": ["src/**/*.ts", "./test/**/*.ts", "vitest.config.ts", "tests/users.e2e.test.ts"]
+  "include": [
+    "src/**/*.ts",
+    "prisma/**/*",
+    "./test/**/*.ts",
+    "vitest.config.ts",
+    "tests/users.e2e.test.ts"
+  ]
 }
