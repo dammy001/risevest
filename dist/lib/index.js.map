@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/lib/index.ts"],"sourcesContent":["import prisma from './prisma'\n\nexport * from './prisma'\nexport { prisma }\n"],"names":["prisma"],"mappings":";;;;+BAGSA;;;eAAAA,eAAM;;;4EAHI"}

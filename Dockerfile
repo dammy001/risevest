@@ -8,11 +8,13 @@ RUN npm i pnpm -g
 
 # Run full install with every postinstall script ( This needs project file )
 RUN pnpm i --ignore-scripts
+
 RUN npx prisma generate
 RUN pnpm run build
 
 COPY pnpm-lock.yaml ./
 COPY prisma ./prisma/
+COPY .gitignore .gitignore
 
 FROM build as production
 

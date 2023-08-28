@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/main.ts"],"sourcesContent":["import { App } from './app'\n\ndeclare module 'express' {\n  export interface Request {\n    user?: any\n  }\n}\n\nconst app = new App()\n\napp.listen()\n"],"names":["app","App","listen"],"mappings":";;;;qBAAoB;AAQpB,MAAMA,MAAM,IAAIC,QAAG;AAEnBD,IAAIE,MAAM"}

@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/exceptions/unprocessable.exception.ts"],"sourcesContent":["import { BaseError } from './base.exception'\n\nexport class UnprocessableEntityException extends BaseError {}\n"],"names":["UnprocessableEntityException","BaseError"],"mappings":";;;;+BAEaA;;;eAAAA;;;+BAFa;AAEnB,MAAMA,qCAAqCC,wBAAS;AAAE"}
