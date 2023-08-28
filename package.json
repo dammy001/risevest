@@ -8,7 +8,7 @@
     "node": "^18"
   },
   "scripts": {
-    "prod": "npx prisma migrate deploy && npx prisma db seed && node dist/main.js",
+    "prod": "npx prisma migrate deploy && node dist/main.js",
     "start": "NODE_ENV=production node dist/main.js",
     "dev": "stale-dep && nodemon",
     "format": "prettier --write --cache \"./**/*.{js,ts,md}\"",
