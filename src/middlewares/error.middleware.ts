@@ -11,6 +11,7 @@ export const ErrorInterceptor = (error: any, req: Request, res: Response, next: 
 
     if (status >= StatusCode.SERVER_ERROR) {
       logger.error(`[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}`)
+      console.log(error)
     }
 
     return res.status(status).json({ status: false, message })
