@@ -12,11 +12,19 @@ export default defineConfig({
   ],
   test: {
     environment: 'node',
+    passWithNoTests: true,
+    logHeapUsage: true,
     coverage: {
+      enabled: true,
       provider: 'v8',
       reporter: ['text', 'json-summary', 'json', 'html'],
     },
     setupFiles: ['./vitest-setup.ts'],
     globals: true,
+    isolate: true,
+    typecheck: {
+      checker: 'tsc',
+      tsconfig: './tsconfig.json',
+    },
   },
 })

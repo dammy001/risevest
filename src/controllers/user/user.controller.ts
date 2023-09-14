@@ -1,31 +1,30 @@
 import { NextFunction, Request, Response } from 'express'
 import { Prisma, User } from '@prisma/client'
-import jwt from 'jsonwebtoken'
+import { Inject, Service } from 'typedi'
 import { Controller } from '../abstract.controller'
 import { StatusCode, createPaginator } from '@/utils'
 import { prisma, userSelect } from '@/lib'
-import { UserEntity } from '@/entities'
-import { JWT_SECRET } from '@/config'
+import { RegisterAction } from '@/actions'
 
 const paginate = createPaginator({ perPage: 20 })
 
+@Service()
 export class UserController extends Controller {
+  @Inject()
+  protected readonly registerAction: RegisterAction
+
   async create(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Response<any, Record<string, any>> | undefined> {
     try {
-      if (await prisma.user.findFirst({ where: { email: req.body.email }, select: userSelect })) {
-        return Controller.error(res, 'User already exists', {}, StatusCode.BAD_REQUEST)
-      }
-
-      const user = await prisma.user.create({ data: { ...req.body }, select: userSelect })
-
-      return Controller.success(res, {
-        user: Controller.mapEntity(UserEntity, user),
-        token: jwt.sign({ user }, JWT_SECRET, { expiresIn: '24h' }),
-      })
+      return Controller.success(
+        res,
+        await this.registerAction.execute(req.body),
+        'User created successfully',
+        StatusCode.CREATED,
+      )
     } catch (err) {
       next(err)
     }

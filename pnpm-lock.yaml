@@ -47,6 +47,9 @@ dependencies:
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.13
+  typedi:
+    specifier: ^0.10.0
+    version: 0.10.0
   winston:
     specifier: ^3.10.0
     version: 3.10.0
@@ -8088,6 +8091,13 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.12
     dev: true
+
+  /typedi@0.10.0:
+    resolution:
+      {
+        integrity: sha512-v3UJF8xm68BBj6AF4oQML3ikrfK2c9EmZUyLOfShpJuItAqVBHWP/KtpGinkSsIiP6EZyyb6Z3NXyW9dgS9X1w==,
+      }
+    dev: false
 
   /typescript@5.2.2:
     resolution:
