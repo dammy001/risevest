@@ -1,10 +1,8 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <a href="https://github.com/dammy001/risevest">
-   Risevest
+  <a href="https://github.com/dammy001/express-ts-starter">
+   Express TS Starter
   </a>
-
-  <h3 align="center">Risevest API</h3>
 </p>
 
 ## About the Project
@@ -34,18 +32,18 @@ Here is what you need to be able to run the project.
 
 ### Setup
 
-1. Clone the repo into a public GitHub repository (or fork https://github.com/dammy001/risevest/fork).
+1. Clone the repo into a public GitHub repository (or fork https://github.com/dammy001/express-ts-starter/fork).
 
    ```sh
-   git clone https://github.com/dammy001/risevest.git
+   git clone https://github.com/dammy001/express-ts-starter.git
    ```
 
-   > If you are on windows, run the following command on `gitbash` with admin privileges: <br> > `git clone -c core.symlinks=true https://github.com/dammy001/risevest.git` <br>
+   > If you are on windows, run the following command on `gitbash` with admin privileges: <br> > `git clone -c core.symlinks=true https://github.com/dammy001/express-ts-starter.git` <br>
 
 1. Go to the project folder
 
    ```sh
-   cd risevest
+   cd express-ts-starter
    ```
 
 1. Install packages with pnpm
