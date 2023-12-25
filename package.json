@@ -71,7 +71,7 @@
     "@types/jest": "^29.5.4",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.5.4",
-    "@types/supertest": "^2.0.12",
+    "@types/supertest": "^6.0.0",
     "@vitest/coverage-v8": "^1.0.0",
     "@vitest/ui": "^1.0.0",
     "errorhandler": "^1.5.1",
